@@ -17,14 +17,14 @@ class Carritos {
     async create() {
         const carts = await this.getAllCarts()
         const nId = carts.length == 0 ? 1 : carts[carts.length - 1].id + 1
-        const time = Date.now()
+        const time = Date(Date.now()).toString()
         const save = { productos: [], timestamp: time, id: nId }
         carts.push(save)
         try {
             await fs.writeFile(this.route, JSON.stringify(carts, null, 2))
             return (save)
         } catch (error) {
-            throw new Error(`Error al guardar: ${error}`)
+            return (`Error al guardar: ${error}`)
         }
     }
 
@@ -39,7 +39,7 @@ class Carritos {
             await fs.writeFile(this.route, JSON.stringify(carts, null, 2))
             return { Mensaje: `carrito borrado` }
         } catch (error) {
-            throw new Error(`Error al borrar: ${error}`)
+            return (`Error al borrar: ${error}`)
         }
     }
 
@@ -51,7 +51,7 @@ class Carritos {
         try {
             return prods || { error: `productos no encontrados` }
         } catch (error) {
-            throw new Error(`Error al buscar: ${error}`)
+            return (`Error al buscar: ${error}`)
         }
     }
 
@@ -62,14 +62,14 @@ class Carritos {
         const array = saveIn.productos
 
         if (index == -1) {
-            throw new Error(`Error al actualizar: no se encontró el id ${id}`)
+            return {Error: `no se encontró el id ${id}`}
         } else {
             array.push(object)
             try {
                 await fs.writeFile(this.route, JSON.stringify(carts, null, 2))
                 return saveIn
             } catch (error) {
-                throw new Error(`Error al actualizar: ${error}`)
+                return (`Error al actualizar: ${error}`)
             }
         }
     }
@@ -89,7 +89,7 @@ class Carritos {
             await fs.writeFile(this.route, JSON.stringify(carts, null, 2))
             return { mensaje: `producto borrado` }
         } catch (error) {
-            throw new Error(`Error al borrar: ${error}`)
+            return (`Error al borrar: ${error}`)
         }
     }
 }

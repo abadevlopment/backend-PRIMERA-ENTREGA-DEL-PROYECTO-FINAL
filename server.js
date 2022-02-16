@@ -8,14 +8,27 @@ const PORT = 8080 || process.env.PORT
 
 const ApiProductos = require('./api/Productos.js')
 const ApiCarritos = require('./api/Carrito.js')
-const productos = new ApiProductos('./api/productos.txt') 
+const productos = new ApiProductos('./api/productos.txt')
 const carrito = new ApiCarritos('./api/carrito.txt')
 
+// ADMINISTRADOR
+const administrador = false
+
 app.use(express.json())
-app.use(express.urlencoded({extended: true}))
+app.use(express.urlencoded({ extended: true }))
 app.use(express.static('./public'))
-app.use('/api/productos',productsRouter)
-app.use('/api/carrito',cartRouter)
+app.use('/api/productos', productsRouter)
+app.use('/api/carrito', cartRouter)
+
+//RUTA NO IMPLEMENTADA
+
+app.get('*', (req, res) => {
+    const error = {
+        error: -2,
+        descripcion: `ruta '${req.url}' método ${req.method}, no implementada`
+    }
+    res.send(error)
+})
 
 // PRODUCTS
 
@@ -30,14 +43,39 @@ productsRouter.get('/:id', (req, res) => {
 })
 
 productsRouter.post('/', (req, res) => {
-    const toSave = req.body
-    // console.log(req.body);
-    productos.save(toSave).then(resp => res.send(resp))
+    if (administrador) {
+        const toSave = req.body
+        productos.save(toSave).then(resp => res.send(resp))
+    } else {
+        res.send({
+            error: -1,
+            descripcion: `ruta '${req.url}' método ${req.method}, no autorizada`
+        })
+    }
+})
+
+productsRouter.put('/:id', (req, res) => {
+    if (administrador) {
+        const id = req.params.id
+        productos.updateById(req.body, id).then(resp => res.send(resp))
+    } else {
+        res.send({
+            error: -1,
+            descripcion: `ruta '${req.url}' método ${req.method}, no autorizada`
+        })
+    }
 })
 
 productsRouter.delete('/:id', (req, res) => {
-    const id = req.params.id
-    productos.deleteByID(id).then(resp => res.send(resp))
+    if (administrador) {
+        const id = req.params.id
+        productos.deleteByID(id).then(resp => res.send(resp))
+    } else {
+        res.send({
+            error: -1,
+            descripcion: `ruta '${req.url}' método ${req.method}, no autorizada`
+        })
+    }
 })
 
 // CART
@@ -60,7 +98,7 @@ cartRouter.get('/:id/productos', (req, res) => {
     carrito.getByIdProds(id).then(resp => res.send(resp))
 })
 
-cartRouter.post('/:id/productos/:id_prod', (req, res) =>{
+cartRouter.post('/:id/productos/:id_prod', (req, res) => {
     const id = req.params.id
     const id_prod = req.params.id_prod
     productos.getById(id_prod)
@@ -69,19 +107,14 @@ cartRouter.post('/:id/productos/:id_prod', (req, res) =>{
         })
 })
 
-cartRouter.delete('/:id/productos/:id_prod', (req, res) =>{
+cartRouter.delete('/:id/productos/:id_prod', (req, res) => {
     const id = req.params.id
     const id_prod = req.params.id_prod
     carrito.updateById(id, id_prod).then(resp => res.send(resp))
 })
 
 
-
-
-
-
-
 const server = app.listen(PORT, () => {
     console.log(`Servidor http escuchando en el puerto ${server.address().port}`)
-  })
-  server.on("error", error => console.log(`Error en servidor ${error}`))
+})
+server.on("error", error => console.log(`Error en servidor ${error}`))

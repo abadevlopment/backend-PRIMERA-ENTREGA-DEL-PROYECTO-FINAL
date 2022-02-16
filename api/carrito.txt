@@ -1,17 +1,43 @@
 [
   {
     "productos": [],
-    "timestamp": 1644974508685,
+    "timestamp": "Wed Feb 16 2022 13:00:54 GMT-0500 (Peru Standard Time)",
     "id": 1
   },
   {
-    "productos": [],
-    "timestamp": 1644974509697,
+    "productos": [
+      {
+        "nombre": "pan",
+        "descripcion": "pan ",
+        "codigo": 123,
+        "foto": "url",
+        "precio": 123,
+        "stock": 55,
+        "timestamp": "Wed Feb 16 2022 12:50:39 GMT-0500 (Peru Standard Time)",
+        "idp": 1
+      },
+      {
+        "nombre": "pan",
+        "descripcion": "pan ",
+        "codigo": 123,
+        "foto": "url",
+        "precio": 123,
+        "stock": 55,
+        "timestamp": "Wed Feb 16 2022 12:50:41 GMT-0500 (Peru Standard Time)",
+        "idp": 2
+      },
+      {
+        "nombre": "pan",
+        "descripcion": "pan paaaaaaaaaaaan ",
+        "codigo": 123,
+        "foto": "url",
+        "precio": 123,
+        "stock": 55,
+        "timestamp": "Wed Feb 16 2022 12:50:49 GMT-0500 (Peru Standard Time)",
+        "idp": 7
+      }
+    ],
+    "timestamp": "Wed Feb 16 2022 13:00:56 GMT-0500 (Peru Standard Time)",
     "id": 2
-  },
-  {
-    "productos": [],
-    "timestamp": 1644974510668,
-    "id": 3
   }
 ]

@@ -28,7 +28,7 @@ class Productos {
     async save(object) {
         const all = await this.getAll()
         const nId = all.length == 0 ? 1 : all[all.length-1].idp + 1
-        const time = Date.now()
+        const time = Date(Date.now()).toString()
         const save = { ...object,timestamp: time, idp: nId}
         all.push(save)
 
@@ -43,12 +43,14 @@ class Productos {
     async updateById(object, id) {
         const all = await this.getAll()
         const index = all.findIndex(res => res.idp == id)
+        const data = all[index]
         if (index == -1) {
-            throw new Error(`Error al actualizar: no se encontró el id ${id}`)
+            return {Error: `no se encontró el id ${id}`}
         } else {
-            all[index] = object
+            all[index] = {...object, timestamp: data.timestamp, idp: data.idp}
             try {
                 await fs.writeFile(this.route, JSON.stringify(all, null, 2))
+                return (all[index])
             } catch (error) {
                 throw new Error(`Error al actualizar: ${error}`)
             }
@@ -60,7 +62,6 @@ class Productos {
         const index = all.findIndex(res => res.idp == id)
         if (index == -1) {
             return { error: `producto no encontrado` }
-            // throw new Error(`Error al borrar: no se encontró el id ${id}`)
         }
         
         all.splice(index, 1)
