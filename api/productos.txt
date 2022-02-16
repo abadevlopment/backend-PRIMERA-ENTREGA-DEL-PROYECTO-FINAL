@@ -1,0 +1,62 @@
+[
+  {
+    "nombre": "pan",
+    "descripcion": "pan",
+    "codigo": 123,
+    "foto": "url",
+    "precio": 123,
+    "stock": 5,
+    "timestamp": 1644955601524,
+    "idp": 1
+  },
+  {
+    "nombre": "arroz",
+    "descripcion": "",
+    "codigo": 1243,
+    "foto": "url",
+    "precio": 165,
+    "stock": 6,
+    "timestamp": 1644955624646,
+    "idp": 2
+  },
+  {
+    "nombre": "azucar",
+    "descripcion": "",
+    "codigo": 1412,
+    "foto": "url",
+    "precio": 176,
+    "stock": 6,
+    "timestamp": 1644955652645,
+    "idp": 3
+  },
+  {
+    "nombre": "huevos",
+    "descripcion": "",
+    "codigo": 141212,
+    "foto": "url",
+    "precio": 260,
+    "stock": 10,
+    "timestamp": 1644955671274,
+    "idp": 4
+  },
+  {
+    "nombre": "asdasdn",
+    "descripcion": "pan",
+    "codigo": 123,
+    "foto": "url",
+    "precio": 123,
+    "stock": 5,
+    "timestamp": 1644964229219,
+    "idp": 5
+  },
+  {
+    "nombre": "asdasdn",
+    "descripcion": "pan",
+    "codigo": 123,
+    "foto": "url",
+    "precio": 123,
+    "stock": 5,
+    "timestamp": 1644974275312,
+    "idp": 8
+  }
+]
